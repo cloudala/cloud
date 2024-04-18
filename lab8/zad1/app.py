@@ -1,4 +1,3 @@
-import os
 from flask import Flask
 
 port = 8080

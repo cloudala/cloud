@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "$REDIS_PORT:$REDIS_PORT"
+    volumes:
+      - redis_data:/data
+
+  app:
+    build: .
+    container_name: app
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=$REDIS_HOST
+      - REDIS_PORT=$REDIS_PORT
+      - APP_PORT=$APP_PORT
+    ports:
+      - "$APP_PORT:$APP_PORT"
+
+volumes:
+  redis_data:
